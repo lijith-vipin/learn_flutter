@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(title: const Text('Home')),
         body: Center(
           child: ElevatedButton(
-            child: const Text('Go to Page 2'),
+            child: const Text('Go to Detail Page'),
             onPressed: () {
               // final location = Uri(
               //     path: DetailPage.routeName,
