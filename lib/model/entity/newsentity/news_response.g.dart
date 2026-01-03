@@ -7,12 +7,12 @@ part of 'news_response.dart';
 // **************************************************************************
 
 NewsResponse _$NewsResponseFromJson(Map<String, dynamic> json) => NewsResponse(
-  status: json['status'] as String,
-  totalResults: (json['totalResults'] as num).toInt(),
-  articles: (json['articles'] as List<dynamic>)
-      .map((e) => ArticleResponse.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+      status: json['status'] as String,
+      totalResults: (json['totalResults'] as num).toInt(),
+      articles: (json['articles'] as List<dynamic>)
+          .map((e) => ArticleResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$NewsResponseToJson(NewsResponse instance) =>
     <String, dynamic>{
@@ -46,7 +46,13 @@ Map<String, dynamic> _$ArticleResponseToJson(ArticleResponse instance) =>
     };
 
 SourceResponse _$SourceResponseFromJson(Map<String, dynamic> json) =>
-    SourceResponse(id: json['id'] as String?, name: json['name'] as String?);
+    SourceResponse(
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+    );
 
 Map<String, dynamic> _$SourceResponseToJson(SourceResponse instance) =>
-    <String, dynamic>{'id': instance.id, 'name': instance.name};
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+    };

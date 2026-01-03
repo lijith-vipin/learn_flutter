@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/router.dart';
+import 'package:learn_flutter/l10n/generated/app_localizations.dart';
+
 import 'main_home.dart';
 
 void main() {
@@ -20,9 +22,12 @@ class MainApp extends StatelessWidget {
         isLoading: false,
         location: HomePage.routeName.appendToRootPath,
       ),
+      localizationsDelegates: S.localizationsDelegates,
+      supportedLocales: S.supportedLocales
     );
   }
 }
+
 extension RouteNameExtension on String {
   /// Initial route must start from "/", appends root path "/" prior to the screen's route name
   String get appendToRootPath {

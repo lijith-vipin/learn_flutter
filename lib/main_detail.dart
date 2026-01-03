@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learn_flutter/l10n/core/l10n.dart';
 
 import 'cubit/news/news_cubit.dart';
 
@@ -11,7 +12,7 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Detail Page 1')),
+      appBar: AppBar(title: Text(context.l10n.detailPage)),
       backgroundColor: Colors.green,
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (ctx, state) {
@@ -37,7 +38,7 @@ class DetailPage extends StatelessWidget {
                 onPressed: () {
                   context.read<NewsCubit>().fetchNews();
                 },
-                child: const Text('Back'),
+                child: Text(context.l10n.backToHome),
               ),
             );
           }
