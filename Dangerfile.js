@@ -103,6 +103,5 @@ if (fs.existsSync("analyze.log")) {
  * 8️⃣ Final summary
  * ----------------------------------------
  */
-message(
-  `Checked ${dartFiles.length} Dart file(s) out of ${changedFiles.length} changed file(s).`
+  message(`Checked ${dartFiles.length} Dart file(s) out of ${changedFiles.length} changed file(s).`);
 })();
