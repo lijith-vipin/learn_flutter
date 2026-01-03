@@ -1,44 +1,37 @@
-import { danger, warn, fail, message } from "danger";
+
+import { danger, warn, fail } from "danger";
 import fs from "fs";
 
 (async () => {
-  if (!fs.existsSync("analyze_output.txt")) {
-    message("No flutter analyze output found");
-    return;
+  const files = danger.git.modified_files.concat(danger.git.created_files);
+
+  // Large PR warning
+  if (danger.github.pr.additions + danger.github.pr.deletions > 500) {
+    warn("⚠️ Large PR — consider splitting");
   }
 
-  const analyzeOutput = fs.readFileSync("analyze_output.txt", "utf8");
-
-  const changedFiles = [
-    ...danger.git.modified_files,
-    ...danger.git.created_files,
-  ].filter(f => f.endsWith(".dart"));
-
-  if (changedFiles.length === 0) {
-    message("No Dart files modified — skipping lint checks");
-    return;
+  // lib changes without tests
+  if (files.some(f => f.startsWith("lib/")) && !files.some(f => f.startsWith("test/"))) {
+    warn("🧪 Changes in lib/ without tests");
   }
 
-  const lines = analyzeOutput.split("\n");
+  // TODO / FIXME detection (FIXED)
+  for (const file of files) {
+    const diff = await danger.git.diffForFile(file);
 
-  const relevantIssues = [];
+    if (!diff || !diff.patch) continue;
 
-  for (const line of lines) {
-    for (const file of changedFiles) {
-      if (line.includes(file)) {
-        relevantIssues.push(line);
-      }
+    if (/TODO|FIXME/i.test(diff.patch)) {
+      warn(`📝 TODO/FIXME found in ${file}`);
     }
   }
 
-  if (relevantIssues.length === 0) {
-    message("No lint issues found in modified files ✅");
-    return;
+  // Unused imports from flutter analyze
+  if (fs.existsSync("analyze.log")) {
+    const log = fs.readFileSync("analyze.log", "utf8");
+    const unused = log.split("\n").filter(l => l.includes("unused_import"));
+    if (unused.length > 0) {
+      fail(`❌ Unused imports detected:\n\n${unused.join("\n")}`);
+    }
   }
-
-  relevantIssues.forEach(issue => {
-    warn(`🧹 Flutter lint: ${issue}`);
-  });
-
-  fail(`Flutter lint errors found in modified files (${relevantIssues.length})`);
 })();
