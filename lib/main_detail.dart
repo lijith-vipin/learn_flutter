@@ -31,7 +31,7 @@ class DetailPage extends StatelessWidget {
               },
             );
           } else if (state.status == NewsStatus.NewsStatusFailure) {
-            return const Center(child: Text('Failed to load news'));
+            return const Center(child: Text('Failed to load news from api'));
           } else {
             return Center(
               child: ElevatedButton(
