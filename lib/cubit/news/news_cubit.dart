@@ -27,7 +27,6 @@ class NewsCubit extends Cubit<NewsState> {
   }
 }
 
-
 class NewsState {
   late NewsStatus status;
   late NewsItemModel? newsList;

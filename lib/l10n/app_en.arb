@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+  "appTitle": "Learn Flutter",
+  "welcome": "Welcome",
+  "login": "Login",
+  "gotoDetailPage": "Go to Detail Page",
+  "detailPage": "Detail Page",
+  "backToHome": "Back to Home Page"
+}

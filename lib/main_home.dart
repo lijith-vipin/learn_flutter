@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:learn_flutter/cubit/news/news_cubit.dart';
+import 'package:learn_flutter/l10n/core/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'main_detail.dart';
 
@@ -13,10 +13,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Home')),
+        appBar: AppBar(title: Text(context.l10n.welcome)),
         body: Center(
           child: ElevatedButton(
-            child: const Text('Go to Page 2'),
+            child: Text(context.l10n.gotoDetailPage),
             onPressed: () {
               // final location = Uri(
               //     path: DetailPage.routeName,

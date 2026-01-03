@@ -9,18 +9,20 @@ part of 'common_response.dart';
 CommonResponse<T> _$CommonResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
-) => CommonResponse<T>(
-  status: json['status'] as String,
-  result: fromJsonT(json['result']),
-);
+) =>
+    CommonResponse<T>(
+      status: json['status'] as String,
+      result: fromJsonT(json['result']),
+    );
 
 Map<String, dynamic> _$CommonResponseToJson<T>(
   CommonResponse<T> instance,
   Object? Function(T value) toJsonT,
-) => <String, dynamic>{
-  'status': instance.status,
-  'result': toJsonT(instance.result),
-};
+) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'result': toJsonT(instance.result),
+    };
 
 EmptyResponse _$EmptyResponseFromJson(Map<String, dynamic> json) =>
     EmptyResponse();
