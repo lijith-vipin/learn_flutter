@@ -13,13 +13,14 @@ if (files.some(f => f.startsWith("lib/")) && !files.some(f => f.startsWith("test
   warn("🧪 Changes in lib/ without tests");
 }
 
-// TODO / FIXME
-files.forEach(file => {
-  const diff = danger.git.diffForFile(file);
-  if (diff?.patch?.match(/TODO|FIXME/)) {
+// TODO / FIXME detection
+for (const file of files) {
+  const diff = await danger.git.diffForFile(file);
+  if (!diff || !diff.patch) continue;
+  if (/TODO|FIXME/i.test(diff.patch)) {
     warn(`📝 TODO/FIXME found in ${file}`);
   }
-});
+}
 
 // Unused imports (from flutter analyze)
 if (fs.existsSync("analyze.log")) {
