@@ -1,5 +1,6 @@
 import { danger, warn, fail, message } from "danger";
 
+(async () => {
 /**
  * Collect changed files (new + modified only)
  */
@@ -95,7 +96,7 @@ if (fs.existsSync("analyze.log")) {
   if (unused.length > 0) {
     fail(`❌ Unused imports detected:\n\n${unused.join("\n")}`);
   }
-} 
+}
 
 /**
  * ----------------------------------------
@@ -104,4 +105,4 @@ if (fs.existsSync("analyze.log")) {
  */
 message(
   `Checked ${dartFiles.length} Dart file(s) out of ${changedFiles.length} changed file(s).`
-);
+})();
