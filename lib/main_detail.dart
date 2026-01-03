@@ -16,7 +16,7 @@ class DetailPage extends StatelessWidget {
       backgroundColor: Colors.green,
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (ctx, state) {
-          // FIXME: Properly Manage the State
+          // FIXME: Properly Manage the States
           if (state.status == NewsStatus.NewsStatusLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state.status == NewsStatus.NewsStatusSuccess) {
