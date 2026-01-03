@@ -26,6 +26,6 @@ if (fs.existsSync("analyze.log")) {
   const log = fs.readFileSync("analyze.log", "utf8");
   const unused = log.split("\n").filter(l => l.includes("unused_import"));
   if (unused.length > 0) {
-    fail(`❌ Unused imports detected:\n\n${unused.join("\n")}`);
+    fail(`❌ Sorry Unused imports detected:\n\n${unused.join("\n")}`);
   }
 }
