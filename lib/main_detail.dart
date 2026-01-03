@@ -20,7 +20,7 @@ class DetailPage extends StatelessWidget {
           if (state.status == NewsStatus.NewsStatusLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state.status == NewsStatus.NewsStatusSuccess) {
-            // TODO: Fix this ListView Later
+            // TODO: Fix this ListView
             return ListView.builder(
               shrinkWrap: true,
               itemCount: state.newsList?.articles.length ?? 0,
