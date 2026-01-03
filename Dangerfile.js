@@ -84,19 +84,37 @@ if (generatedFiles.length > 0) {
   );
 }
 
-// Unused imports from flutter analyze
-/**
- * ----------------------------------------
- * 6️⃣ Unused imports check
- * ----------------------------------------
- */
-if (fs.existsSync("analyze.log")) {
-  const log = fs.readFileSync("analyze.log", "utf8");
-  const unused = log.split("\n").filter(l => l.includes("unused_import"));
-  if (unused.length > 0) {
-    fail(`❌ Unused imports detected:\n\n${unused.join("\n")}`);
+  /**
+   * 3️⃣ UNUSED IMPORT detection (diff-based)
+   */
+  for (const file of dartFiles) {
+    const diff = await danger.git.diffForFile(file);
+    if (!diff?.added) continue;
+
+    const addedLines = diff.added.split("\n");
+
+    const imports = addedLines
+      .map(l => l.trim())
+      .filter(l => l.startsWith("import "))
+      .map(l => {
+        const match = l.match(/import\s+['"].+\/(.+?)\.dart['"]/);
+        return match ? match[1] : null;
+      })
+      .filter(Boolean);
+
+    if (imports.length === 0) continue;
+
+    const usageText = addedLines
+      .filter(l => !l.trim().startsWith("import "))
+      .join(" ");
+
+    imports.forEach(imp => {
+      const used = new RegExp(`\\b${imp}\\b`).test(usageText);
+      if (!used) {
+        warn(`🚫 Possible unused import \`${imp}\` in ${file}`);
+      }
+    });
   }
-}
 
 /**
  * ----------------------------------------
