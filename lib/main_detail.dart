@@ -16,10 +16,11 @@ class DetailPage extends StatelessWidget {
       backgroundColor: Colors.green,
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (ctx, state) {
-          // FIXME: Properly Manage the State
+          // FIXME: Properly Manage the States
           if (state.status == NewsStatus.NewsStatusLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state.status == NewsStatus.NewsStatusSuccess) {
+            // TODO: Fix this ListView
             return ListView.builder(
               shrinkWrap: true,
               itemCount: state.newsList?.articles.length ?? 0,
@@ -32,7 +33,7 @@ class DetailPage extends StatelessWidget {
               },
             );
           } else if (state.status == NewsStatus.NewsStatusFailure) {
-            return const Center(child: Text('Failed to load news'));
+            return const Center(child: Text('Failed to load news from api'));
           } else {
             return Center(
               child: ElevatedButton(
