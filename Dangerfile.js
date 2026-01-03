@@ -14,14 +14,23 @@ import fs from "fs";
     warn("🧪 Changes in lib/ without tests");
   }
 
-  // TODO / FIXME detection (FIXED)
+ // Check for TODO/FIXME comments in Dart files
   for (const file of files) {
+    if (!file.endsWith(".dart")) continue;
+
+    // 1️⃣ Check git diff (PR changes)
     const diff = await danger.git.diffForFile(file);
+    if (diff?.patch && /TODO|FIXME/i.test(diff.patch)) {
+      warn(`📝 TODO/FIXME added in PR diff: ${file}`);
+      continue;
+    }
 
-    if (!diff || !diff.patch) continue;
-
-    if (/TODO|FIXME/i.test(diff.patch)) {
-      warn(`📝 TODO/FIXME found in ${file}`);
+    // 2️⃣ Fallback: check file content (new files)
+    if (danger.git.created_files.includes(file) && fs.existsSync(file)) {
+      const content = fs.readFileSync(file, "utf8");
+      if (/TODO|FIXME/i.test(content)) {
+        warn(`📝 TODO/FIXME found in new file: ${file}`);
+      }
     }
   }
 
