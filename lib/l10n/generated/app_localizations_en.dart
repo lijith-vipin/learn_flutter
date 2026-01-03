@@ -24,5 +24,5 @@ class SEn extends S {
   String get detailPage => 'Detail Page';
 
   @override
-  String get backToHome => 'Back to Home Page';
+  String get readNews => 'Read News';
 }

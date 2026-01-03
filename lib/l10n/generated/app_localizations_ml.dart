@@ -24,5 +24,5 @@ class SMl extends S {
   String get detailPage => 'വിശദാംശങ്ങളുടെ പേജ്';
 
   @override
-  String get backToHome => 'ഹോം പേജിലേക്ക് മടങ്ങുക';
+  String get readNews => 'വാർത്തകൾ വായിക്കുക';
 }

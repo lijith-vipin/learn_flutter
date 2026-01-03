@@ -16,6 +16,7 @@ class NewsItemMapper {
             title: article.title ?? "No Title",
             url: article.url ?? "",
             publishedAt: article.publishedAt ?? "",
+            urlToImage: article.urlToImage,
           ),
       ).toList(),
     );

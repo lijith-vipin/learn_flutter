@@ -16,5 +16,6 @@ abstract class ApiClient {
       @Query("from") String fromDate,
       @Query("sortBy") String sortBy,
       @Query("apiKey") String apiKey,
+      @Query("language") String language,
       );
 }

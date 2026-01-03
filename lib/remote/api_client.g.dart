@@ -27,6 +27,7 @@ class _ApiClient implements ApiClient {
     String fromDate,
     String sortBy,
     String apiKey,
+    String language,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -34,6 +35,7 @@ class _ApiClient implements ApiClient {
       r'from': fromDate,
       r'sortBy': sortBy,
       r'apiKey': apiKey,
+      r'language': language,
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
