@@ -16,9 +16,11 @@ class DetailPage extends StatelessWidget {
       backgroundColor: Colors.green,
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (ctx, state) {
+          // FIXME: Properly Manage the State
           if (state.status == NewsStatus.NewsStatusLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state.status == NewsStatus.NewsStatusSuccess) {
+            // TODO: Fix this ListView Later
             return ListView.builder(
               shrinkWrap: true,
               itemCount: state.newsList?.articles.length ?? 0,
